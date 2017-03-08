@@ -1,34 +1,40 @@
 package com.trando.dungeoncrawler;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.*;
 import com.sun.prism.image.ViewPort;
 
 public class DungeonCrawler extends ApplicationAdapter implements InputProcessor {
     public static final float PPM = 16;
+    Array<Test> bodies;
+
     OrthographicCamera camera;
     World world;
     Vector2 gravity = new Vector2(0, 0);
     SpriteBatch batch;
-    Sprite img;
 
     Body body;
+    public Sprite img;
 
     @Override
     public void create() {
+        img = new Sprite(new Texture("badlogic.jpg"));
+        bodies = new Array<Test>();
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         world = new World(gravity, true);
-        img = new Sprite(new Texture("badlogic.jpg"));
 
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(img.getX(), img.getY());
-        body = world.createBody(bodyDef);
+        body = new Test(world).body;
+
+        for(int i = 0; i< 10; i++){
+            bodies.add(new Test(world));
+        }
 
         batch = new SpriteBatch();
         Gdx.input.setInputProcessor(this);
@@ -46,8 +52,13 @@ public class DungeonCrawler extends ApplicationAdapter implements InputProcessor
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(img, terrible+=1,0);
-        batch.draw(img, img.getX(), img.getY());
+        batch.draw(img, body.getPosition().x, body.getPosition().y);
+        for(Test test: bodies){
+            Vector2 vec = new Vector2();
+            vec.setToRandomDirection();
+            batch.draw(test.img, test.body.getPosition().x, test.body.getPosition().y);
+            test.body.applyLinearImpulse(vec, test.body.getPosition(), true);
+        }
         batch.end();
         camera.update();
     }
