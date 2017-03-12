@@ -29,7 +29,7 @@ public class Test {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
-        fixtureDef.density = 0.001f;
+        fixtureDef.density = 0.01f;
         fixtureDef.restitution = 0.5f;
 
         body.createFixture(fixtureDef);
