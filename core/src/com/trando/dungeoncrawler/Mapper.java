@@ -1,7 +1,7 @@
 package com.trando.dungeoncrawler;
 
 import com.badlogic.ashley.core.ComponentMapper;
-import com.trando.dungeoncrawler.component.*;
+import com.trando.dungeoncrawler.components.*;
 
 /**
  * Created by Cameron on 3/11/2017.

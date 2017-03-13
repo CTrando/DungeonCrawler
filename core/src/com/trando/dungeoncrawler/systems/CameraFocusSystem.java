@@ -1,11 +1,11 @@
-package com.trando.dungeoncrawler.system;
+package com.trando.dungeoncrawler.systems;
 
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.utils.Array;
 import com.trando.dungeoncrawler.Mapper;
-import com.trando.dungeoncrawler.component.*;
+import com.trando.dungeoncrawler.components.*;
 
 /**
  * Created by Cameron on 3/11/2017.

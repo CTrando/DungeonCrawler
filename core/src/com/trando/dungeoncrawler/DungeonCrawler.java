@@ -7,11 +7,10 @@ import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.trando.dungeoncrawler.component.CameraFocusComponent;
-import com.trando.dungeoncrawler.system.*;
+import com.trando.dungeoncrawler.systems.*;
 
 public class DungeonCrawler extends ApplicationAdapter implements InputProcessor {
-    public static final float PPM = 16;
+    public static final float PPM = 32;
     Array<Test> bodies;
 
     Tile[][] tileBoard;
@@ -64,6 +63,13 @@ public class DungeonCrawler extends ApplicationAdapter implements InputProcessor
         engine.addEntity(new Player(world));
 
 
+        tileBoard = new Tile[(int) height][(int) width];
+        for(int i = 0; i< tileBoard.length; i++){
+            for(int j = 0; j< tileBoard[0].length; j++){
+                tileBoard[i][j] = new Tile(world, i, j);
+                engine.addEntity(tileBoard[i][j]);
+            }
+        }
 
 /*
 
@@ -74,16 +80,10 @@ public class DungeonCrawler extends ApplicationAdapter implements InputProcessor
            // bodies.add(new Test(world));
         }
 
-        tileBoard = new Tile[(int) height][(int) width];
-        for(int i = 0; i< tileBoard.length; i++){
-            for(int j = 0; j< tileBoard[0].length; j++){
-                tileBoard[i][j] = new Tile(world, i, j);
-            }
-        }
+
 
         lookTile = tileBoard[10][10];
 */
-
 
         camera.position.set(0, 0, 0);
         inputMultiplexer.addProcessor(this);

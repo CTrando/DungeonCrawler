@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.*;
-import com.trando.dungeoncrawler.component.*;
+import com.trando.dungeoncrawler.components.*;
 
 import static com.trando.dungeoncrawler.DungeonCrawler.PPM;
 
@@ -41,7 +41,8 @@ public class Player extends Entity {
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.01f;
-        fixtureDef.restitution = 0.5f;
+       // fixtureDef.restitution = 0.5f;
+        fixtureDef.filter.groupIndex = GroupIndexes.GROUP_PLAYER;
 
         bc.getBody().createFixture(fixtureDef);
         shape.dispose();

@@ -1,9 +1,7 @@
-package com.trando.dungeoncrawler.component;
+package com.trando.dungeoncrawler.components;
 
 import com.badlogic.ashley.core.Component;
 import com.badlogic.gdx.physics.box2d.*;
-
-import static com.trando.dungeoncrawler.DungeonCrawler.PPM;
 
 /**
  * Created by Cameron on 3/11/2017.
@@ -12,7 +10,7 @@ public class BodyComponent implements Component {
 
     private World world;
 
-    //this will be created outside of the body component in the entity constructor - this way position can be set at startup
+    //this will be created outside of the body components in the entity constructor - this way position can be set at startup
     private Body body;
 
     public BodyComponent(World world){

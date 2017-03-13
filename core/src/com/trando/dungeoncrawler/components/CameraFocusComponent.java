@@ -1,7 +1,6 @@
-package com.trando.dungeoncrawler.component;
+package com.trando.dungeoncrawler.components;
 
 import com.badlogic.ashley.core.Component;
-import com.badlogic.gdx.graphics.*;
 
 /**
  * Created by Cameron on 3/11/2017.
