@@ -3,6 +3,7 @@ package com.trando.dungeoncrawler.systems;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.trando.dungeoncrawler.Mapper;
 import com.trando.dungeoncrawler.components.*;
@@ -29,7 +30,7 @@ public class CameraFocusSystem extends IteratingSystem {
             float x = bc.getBody().getPosition().x;
             float y = bc.getBody().getPosition().y;
 
-            camera.position.set(x,y,0);
+            camera.position.lerp(new Vector3(x, y, 0), .5f);
             camera.update();
         }
 

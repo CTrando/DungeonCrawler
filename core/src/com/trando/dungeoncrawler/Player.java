@@ -16,14 +16,18 @@ public class Player extends Entity {
 
     public Player(World world){
         BodyComponent bc = new BodyComponent(world);
-        RenderComponent rc = new RenderComponent(new Sprite(new Texture(Gdx.files.internal("badlogic.jpg"))));
+        RenderComponent rc = new RenderComponent(new Sprite(new Texture(Gdx.files.internal("player.png"))));
         PlayerControlledComponent pc = new PlayerControlledComponent();
         CameraFocusComponent cfc = new CameraFocusComponent();
+        AnimationComponent ac = new AnimationComponent();
+        StateComponent sc = new StateComponent();
 
         this.add(bc);
         this.add(rc);
         this.add(pc);
         this.add(cfc);
+        this.add(ac);
+        this.add(sc);
 
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -35,7 +39,7 @@ public class Player extends Entity {
         // set width to be 16 pixels wide, but then it gets converted to 1 box2d unit, which is 16 pixels wide so it works in box2d units
         // will render because of how box2d debug renderer works
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(16 / 2/ PPM, 16 /2
+        shape.setAsBox(PPM / 2/ PPM, PPM /2
                 /PPM);
 
         FixtureDef fixtureDef = new FixtureDef();

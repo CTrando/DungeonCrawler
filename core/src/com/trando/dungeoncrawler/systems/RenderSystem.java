@@ -3,6 +3,7 @@ package com.trando.dungeoncrawler.systems;
 import com.badlogic.ashley.core.*;
 import com.badlogic.ashley.systems.*;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.trando.dungeoncrawler.Mapper;
 import com.trando.dungeoncrawler.components.*;
@@ -41,7 +42,7 @@ public class RenderSystem extends IteratingSystem {
 
             batch.draw(sprite, x - spriteWidth/PPM/2, y - spriteHeight/PPM/2, spriteWidth/PPM/2,
                        spriteHeight/PPM/2, spriteWidth/PPM, spriteHeight/PPM,
-                       1,1, bcm.getBody().getAngle());
+                       1, 1, MathUtils.radiansToDegrees*bcm.getBody().getAngle());
         }
         renderQueue.clear();
     }

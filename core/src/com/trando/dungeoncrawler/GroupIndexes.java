@@ -5,6 +5,6 @@ package com.trando.dungeoncrawler;
  */
 public class GroupIndexes {
     //if they are of the same group, then they don't collide! Not if they are negative, terrible!
-    public static final short GROUP_PLAYER = -1;
+    public static final short GROUP_PLAYER = 1;
     public static final short GROUP_TILE = -2;
 }
