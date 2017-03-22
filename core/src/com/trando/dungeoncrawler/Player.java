@@ -14,7 +14,7 @@ import static com.trando.dungeoncrawler.DungeonCrawler.PPM;
  */
 public class Player extends Entity {
 
-    public Player(World world){
+    public Player(World world, int row, int col) {
         BodyComponent bc = new BodyComponent(world);
         RenderComponent rc = new RenderComponent(new Sprite(new Texture(Gdx.files.internal("player.png"))));
         PlayerControlledComponent pc = new PlayerControlledComponent();
@@ -32,23 +32,28 @@ public class Player extends Entity {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         //reason why can only work in increments of one is right here
-        bodyDef.position.set(1, 1);
+        bodyDef.position.set(row, col);
         bc.setBody(world.createBody(bodyDef));
 
         //these are in box2d units not pixels so it works perfectly
         // set width to be 16 pixels wide, but then it gets converted to 1 box2d unit, which is 16 pixels wide so it works in box2d units
         // will render because of how box2d debug renderer works
         PolygonShape shape = new PolygonShape();
-        shape.setAsBox(PPM / 2/ PPM, PPM /2
-                /PPM);
+        shape.setAsBox(PPM / 2 / PPM, PPM / 2
+                / PPM);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
         fixtureDef.density = 0.01f;
-       // fixtureDef.restitution = 0.5f;
-        fixtureDef.filter.groupIndex = GroupIndexes.GROUP_PLAYER;
+        // fixtureDef.restitution = 0.5f;
+        fixtureDef.filter.categoryBits = GroupIndexes.CATEGORY_PLAYER;
+        fixtureDef.filter.maskBits = GroupIndexes.MASK_PLAYER;
 
         bc.getBody().createFixture(fixtureDef);
         shape.dispose();
+    }
+
+    public Player (World world){
+        this(world,1,1);
     }
 }

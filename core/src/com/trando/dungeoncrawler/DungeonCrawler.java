@@ -36,12 +36,11 @@ public class DungeonCrawler extends ApplicationAdapter {
 
     @Override
     public void create() {
-
         batch = new SpriteBatch();
         engine = new Engine();
         Box2D.init();
-        height = Gdx.graphics.getHeight()/PPM;
-        width = Gdx.graphics.getWidth()/PPM;
+        height = Gdx.graphics.getHeight() / PPM;
+        width = Gdx.graphics.getWidth() / PPM;
 
         img = new Sprite(new Texture("badlogic.jpg"));
         camera = new OrthographicCamera(width, height);
@@ -58,16 +57,12 @@ public class DungeonCrawler extends ApplicationAdapter {
         engine.addSystem(new PlayerControlledSystem(inputHandler));
         engine.addSystem(new CameraFocusSystem(camera));
         engine.addSystem(new AnimationSystem());
-        engine.addEntity(new Player(world));
 
 
-        tileBoard = new Tile[(int) height][(int) width];
-        for(int i = 0; i< tileBoard.length; i++){
-            for(int j = 0; j< tileBoard[0].length; j++){
-                tileBoard[i][j] = new Tile(world, i, j);
-                engine.addEntity(tileBoard[i][j]);
-            }
-        }
+        tileBoard = new Tile[8][8];
+        initTileBoard(tileBoard);
+
+        engine.addEntity(new Player(world, tileBoard[0].length / 2, tileBoard.length / 2));
 
         camera.position.set(0, 0, 0);
         Gdx.input.setInputProcessor(inputMultiplexer);
@@ -90,13 +85,30 @@ public class DungeonCrawler extends ApplicationAdapter {
     }
 
     @Override
-    public void resize(int width, int height){
-        camera.setToOrtho(false, width/PPM, height/PPM);
+    public void resize(int width, int height) {
+        camera.setToOrtho(false, width / PPM, height / PPM);
         camera.update();
     }
 
     @Override
     public void dispose() {
         batch.dispose();
+    }
+
+    public Tile[][] initTileBoard(Tile[][] tileBoard) {
+        for (int i = 0; i < tileBoard.length; i++) {
+            for (int j = 0; j < tileBoard[0].length; j++) {
+
+                if (i == 0 || j == 0
+                           || i == tileBoard.length - 1
+                           || j == tileBoard[0].length - 1) {
+                    tileBoard[i][j] = new StaticTile(world, i, j);
+                } else {
+                    tileBoard[i][j] = new Tile(world, i, j);
+                }
+                engine.addEntity(tileBoard[i][j]);
+            }
+        }
+        return tileBoard;
     }
 }
